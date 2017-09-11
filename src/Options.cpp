@@ -8,6 +8,7 @@
 #include "Options.h"
 #include <string>
 #include <cstring>
+#include <stdio.h>
 
 Options::Options(int argc, const char **argv)
 {
@@ -25,17 +26,21 @@ void Options::setOptstring(string validopt)
 int Options::getopt(void)
 {
 
-	for (size_t i = 0; i < optstring.size(); i++)
+	for (; count < argC; count++)
 	{
-		if (count>argC)
-			return 0;
-
-		if (strstr(argV[count], "-" + optstring[i]))
+		for (size_t j = 0; j < optstring.size(); j++)
 		{
-			count++;
-			return optstring[i];
+			if (argV[count][0] == '-' && strlen(argV[count])==2 )
+			{
+			if(argV[count][1]==optstring[j])
+					{
+				count++;
+				return optstring[j];
+					}
+				}
+
+			}
 		}
-	}
 
 	return 0;
 }
@@ -44,16 +49,20 @@ int Options::numopt(void)
 {
 	int number = 0;
 
-	for (int i = 1; i <= argC; i++)
+	for (int i = 1; i < argC; i++)
 	{
 		for (size_t j = 0; j < optstring.size(); j++)
 		{
-			if (strstr(argV[i], "-" + optstring[i]))
+			if (argV[i][0] == '-' && strlen(argV[i])==2 )
 			{
+			if(argV[i][1]==optstring[j])
+					{
 				number++;
+					}
+				}
+
 			}
 		}
-	}
 
-	return number;
-}
+		return number;
+	}
