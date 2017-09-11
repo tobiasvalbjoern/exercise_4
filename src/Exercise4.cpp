@@ -16,7 +16,8 @@ int main(int argc, char** argv) {
 	opt.setOptstring(validOpt);
 	cout << "Number of valid options on command line: "<<opt.numopt()<< endl;
 
-	for (int i=0 ; i < opt.numopt() ; i++)
+	int cnt = opt.numopt();
+	for (int i=0 ; i < cnt ; i++)
 	{
 		cout << "Found match: -" << (char)opt.getopt() << endl;
 	}
